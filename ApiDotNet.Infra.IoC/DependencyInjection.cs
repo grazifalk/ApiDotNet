@@ -2,9 +2,11 @@
 using ApiDotNet.Application.Services;
 using ApiDotNet.Application.Services.Interfaces;
 using ApiDotNet.Domain.Authentication;
+using ApiDotNet.Domain.Integrations;
 using ApiDotNet.Domain.Repositories;
 using ApiDotNet.Infra.Data.Authentication;
 using ApiDotNet.Infra.Data.Context;
+using ApiDotNet.Infra.Data.Integrations;
 using ApiDotNet.Infra.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -25,7 +27,8 @@ namespace ApiDotNet.Infra.IoC
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<ITokenGenerator, TokenGenerator>();
             services.AddScoped<IUserRepository, UserRepository>();
-
+            services.AddScoped<IPersonImageRepository, PersonImageRepository>();
+            services.AddScoped<ISavePersonImage, SavePersonImage>();
             return services;
         }
 
@@ -37,6 +40,7 @@ namespace ApiDotNet.Infra.IoC
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IPurchaseService, PurchaseService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IPersonImageService, PersonImageService>();
             return services;
         }
     }

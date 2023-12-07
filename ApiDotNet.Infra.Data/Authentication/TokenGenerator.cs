@@ -12,10 +12,12 @@ namespace ApiDotNet.Infra.Data.Authentication
         //implementar informações que vamos colocar dentro do token
         public dynamic Generator(User user)
         {
+            var permission = string.Join(",", user.UserPermissions.Select(x => x.Permission?.PermissionName));
             var claims = new List<Claim>
             {
                 new Claim("Email", user.Email),
                 new Claim("Id", user.Id.ToString()),
+                new Claim("Permissoes", permission)
             };
 
             //criar expiração

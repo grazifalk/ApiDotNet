@@ -15,9 +15,17 @@ namespace ApiDotNet.Infra.Data.Repositories
         }
 
         //vai buscar usuário no banco e vai validar se o email e senha tem no banco
-        public async Task<User> GetUserByEmailAndPasswordAsync(string email, string password)
+        public async Task<User?> GetUserByEmailAndPasswordAsync(string email, string password)
         {
-            return await _db.Users.FirstOrDefaultAsync(x => x.Email == email && x.Password == password);
+            return await _db.Users
+                .Include(x => x.UserPermissions).ThenInclude(x => x.Permission)
+                .FirstOrDefaultAsync(x => x.Email == email && x.Password == password);
         }
+
+        //vamos fazer um join, para através do usuário acessar as permissões
+        //além de incluir a lista, vamos fazer um join que não será com usuário e sim com usuáriopermissão
+        //quando adicionamos o Include, o relacionamento é com o usuário
+        //quando usamos o ThenInclude, o relacionamento é com o último Include que colocamos
+        //fazendo isso garantimos que quando estivermos dentro da lista de usuários a gente consiga acessar as informações de permissões, ou seja, o nome visual o id etc
     }
 }

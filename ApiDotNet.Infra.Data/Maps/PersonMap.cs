@@ -22,6 +22,8 @@ namespace ApiDotNet.Infra.Data.Maps
             // 1 pra N - a tabela de pessoa tem uma lista de compras, onde essa lista de compras tem um atributo virtual Person e a ligação é feita através de idPessoa, mas 1 compra é referente a 1 pessoa
             builder.HasMany(x => x.Purchases).WithOne(p => p.Person).HasForeignKey(x => x.PersonId);
 
+            builder.HasMany(x => x.PersonImages).WithOne(x => x.Person).HasForeignKey(x => x.PersonId);
+
         }
     }
 }

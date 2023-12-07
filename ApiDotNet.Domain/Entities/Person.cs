@@ -10,11 +10,15 @@ namespace ApiDotNet.Domain.Entities
         public string Phone { get; private set; }
         public ICollection<Purchase> Purchases { get; set; }
 
+        //referenciar imagem
+        public ICollection<PersonImage> PersonImages { get; private set; }
+
         //construtor usado para adicionar uma pessoa
         public Person(string name, string document, string phone)
         {
             Validation(name, document, phone);
             Purchases = new List<Purchase>(); //inicializar lista
+            PersonImages = new List<PersonImage>();
         }
 
         //construtor usado para editar uma pessoa
@@ -24,6 +28,7 @@ namespace ApiDotNet.Domain.Entities
             Id = id;
             Validation(name, document, phone);
             Purchases = new List<Purchase>();
+            PersonImages = new List<PersonImage>();
         }
 
         private void Validation(string name, string document, string phone)

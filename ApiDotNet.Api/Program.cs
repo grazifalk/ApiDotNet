@@ -1,3 +1,5 @@
+using ApiDotNet.Api.Authentication;
+using ApiDotNet.Domain.Authentication;
 using ApiDotNet.Infra.IoC;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -50,6 +52,9 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddInfrastructure(builder.Configuration); //infra
 builder.Services.AddServices(builder.Configuration); //serviço
+builder.Services.AddHttpContextAccessor(); //injetar dependência
+builder.Services.AddScoped<ICurrentUser, CurrentUser>(); //referenciar
+
 //remove os nulos do nosso retorno
 builder.Services.AddMvc().AddJsonOptions(options =>
 {
