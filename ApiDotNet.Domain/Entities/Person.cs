@@ -24,7 +24,7 @@ namespace ApiDotNet.Domain.Entities
         //construtor usado para editar uma pessoa
         public Person(int id, string name, string document, string phone)
         {
-            DomainValidationException.When(id < 0, "Id deve ser maior que zero!");
+            DomainValidationException.When(id <= 0, "Id inválido!");
             Id = id;
             Validation(name, document, phone);
             Purchases = new List<Purchase>();
