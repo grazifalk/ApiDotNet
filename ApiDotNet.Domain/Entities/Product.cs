@@ -18,7 +18,7 @@ namespace ApiDotNet.Domain.Entities
 
         public Product(int id, string name, string codErp, decimal price)
         {
-            DomainValidationException.When(id < 0, "Id do produto deve ser informado!");
+            DomainValidationException.When(id <= 0, "Id do produto deve ser informado!");
             Id = id;
             Validation(name, codErp, price);
             Purchases = new List<Purchase>();
@@ -34,6 +34,12 @@ namespace ApiDotNet.Domain.Entities
             CodErp = codErp;
             Price = price;
         }
+
+        public void Edit(string name, string codErp, decimal price)
+        {
+            Validation(name, codErp, price);
+        }
+
     }
 
 }
