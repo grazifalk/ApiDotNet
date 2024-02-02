@@ -1,0 +1,23 @@
+Conseguimos verificar que nível está nossa cobertura de testes (as classes que está cobrindo, etc)
+
+1- Criar arquivo .sh (mac) ou .bat (windows). Esse arquivo facilita, pois conseguimos colocar dois comandos juntos, um que vai gerar o xml e o outro que vai gerar o html,
+assim rodamos só esse arquivo e ele roda tudo.
+
+2- Instalar Pacotes NuGet:
+- coverlet.collector 3.0.3
+- coverlet.msbuild 3.1.2
+- reportGenerator 5.1.9
+
+3- Passar o caminho de onde estão os nossos testes, setamos uma variável pra true e falamos onde vai salvar e falamos onde vai gerar o arquivo
+
+CONTEÚDO DO ARQUIVO cobertura_teste.sh ou cobertura_teste.bat
+
+mkdir .coverage
+
+dotnet test MP.ApiDotNet7.Test/MP.ApiDotNet7.Test.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput="../.coverage/Data.opencover.xml" 
+reportgenerator "-reports:.coverage/Data.opencover.xml" "-targetdir:.coverage/.coverage-report" -reporttypes:Html
+
+PAUSE
+
+CASO NECESSARIO:
+dotnet tool install --global dotnet-reportgenerator-globaltool --version 5.1.9
